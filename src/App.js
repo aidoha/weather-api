@@ -1,26 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import axios from 'axios';
+import { Block } from './style/common';
+//Components
+import CityCard from './Components/CityCard';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const API_URL = 'http://api.openweathermap.org/data/2.5/weather?q=';
+const API_KEY = 'a09c142a9d5d5b66939a5ddbb82bfb4c';
+
+class App extends React.Component {
+	state = {
+		weatherData: [],
+		isLoading: true,
+	};
+
+	componentDidMount() {
+		axios
+			.get(`${API_URL}Almaty&appid=${API_KEY}`)
+			.then(res => {
+				const weatherData = res.data;
+				this.setState({ weatherData, isLoading: false });
+			})
+			.catch(err => console.error('OPPS something went wrong!', err));
+	}
+	render() {
+		const { weatherData, isLoading } = this.state;
+		return <Block>{!isLoading ? <CityCard data={weatherData} /> : <Block>loading...</Block>}</Block>;
+	}
 }
 
 export default App;
