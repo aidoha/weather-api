@@ -14,7 +14,7 @@ const CityCard = ({ data }) => {
 				ai="center"
 				padding="10px"
 				radius="6px 6px 0px 0px"
-				bg="linear-gradient(to top left,#feb020,#ffd05c);"
+				bg="linear-gradient(to top left,#feb020,#ffd05c)"
 			>
 				<Block>
 					<Text weight="bold" size="18px">
