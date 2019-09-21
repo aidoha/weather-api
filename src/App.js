@@ -1,8 +1,9 @@
 import React from 'react';
 import axios from 'axios';
-import { Block } from './style/common';
+import { Block, FlexBox } from './style/common';
 //Components
 import CityCard from './Components/CityCard';
+import Loader from './Components/Loader';
 
 const API_URL = 'http://api.openweathermap.org/data/2.5/weather?q=';
 const API_KEY = 'a09c142a9d5d5b66939a5ddbb82bfb4c';
@@ -15,7 +16,7 @@ class App extends React.Component {
 
 	componentDidMount() {
 		axios
-			.get(`${API_URL}Almaty&appid=${API_KEY}`)
+			.get(`${API_URL}London&appid=${API_KEY}`)
 			.then(res => {
 				const weatherData = res.data;
 				this.setState({ weatherData, isLoading: false });
@@ -24,7 +25,17 @@ class App extends React.Component {
 	}
 	render() {
 		const { weatherData, isLoading } = this.state;
-		return <Block>{!isLoading ? <CityCard data={weatherData} /> : <Block>loading...</Block>}</Block>;
+		return (
+			<Block>
+				{!isLoading ? (
+					<FlexBox jc="center">
+						<CityCard data={weatherData} />
+					</FlexBox>
+				) : (
+					<Loader />
+				)}
+			</Block>
+		);
 	}
 }
 

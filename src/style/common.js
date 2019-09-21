@@ -17,6 +17,7 @@ export const Text = styled.div`
 	line-height: ${props => props.lh};
 	text-align: ${props => props.textAlign};
 	letter-spacing: ${props => props.letterSpace};
+	border-bottom: ${props => props.borderBottom};
 `;
 
 export const FlexBox = styled.div`
@@ -64,5 +65,6 @@ export const Block = styled.div`
 	bottom: ${props => props.pbottom};
 	right: ${props => props.pright};
 	z-index: ${props => props.zIndex};
+	box-shadow: ${props => props.boxShadow};
 	font-family: Open Sans, sans-serif;
 `;
