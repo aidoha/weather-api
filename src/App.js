@@ -3,8 +3,10 @@ import axios from 'axios';
 import { Block, FlexBox, Text } from './style/common';
 //Components
 import CityCard from './Components/CityCard';
+import CitySelection from './Components/CitySelection';
+import CitySearch from './Components/CitySearch';
+import Button from './Components/Button';
 import Loader from './Components/Loader';
-import CitySelection from './Components/CitySelection/CitySelection';
 
 const API_KEY = 'a09c142a9d5d5b66939a5ddbb82bfb4c';
 
@@ -26,7 +28,7 @@ class App extends React.Component {
 				const weatherData = res.data;
 				this.setState({ weatherData, loading: false });
 			})
-			.catch(err => console.log('err', err));
+			.catch(err => console.log('Opps something went wrong', err));
 	};
 
 	onChangeHandler = e => {
@@ -35,15 +37,30 @@ class App extends React.Component {
 		this.getWeatherData(value);
 	};
 
+	onSearchHandler = e => {
+		const { value } = e.target;
+		this.setState({ value });
+	};
+
+	onBtnHandler = () => {
+		this.getWeatherData(this.state.value);
+	};
+
 	render() {
 		const { loading, weatherData } = this.state;
 		return (
-			<Block>
+			<Block minWidth="300px" maxWidth="300px" margin="auto">
 				<FlexBox jc="center">
 					<Block>
-						<Text marginBottom="10px" color="#cccccc">Choose the city</Text>
+						<Text marginBottom="10px" color="#cccccc">
+							Choose the city
+						</Text>
 						<CitySelection onChangeHandler={this.onChangeHandler} />
 					</Block>
+				</FlexBox>
+				<FlexBox jc="space-between" marginTop="20px">
+					<CitySearch onSearchHandler={this.onSearchHandler} />
+					<Button onClick={this.onBtnHandler}>Search</Button>
 				</FlexBox>
 				{!loading ? (
 					<FlexBox jc="center" marginTop="30px">
